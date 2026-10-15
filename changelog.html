@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Changelog - Container Tracker bei Roy Steck</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="landing.css">
+</head>
+<body>
+
+  <section class="hero" style="padding-bottom: 1rem;">
+    <div class="terminal-badge">
+      <div class="terminal-dot"></div>
+      <span>changelog.log // version history</span>
+    </div>
+
+    <h1><span class="prompt">></span> Versionshistorie</h1>
+    <p style="font-family: var(--font-mono); color: var(--accent-cyan); margin-bottom: 1.5rem;">Container Tracker bei Roy Steck</p>
+    
+    <a href="index.html" class="btn-action" style="max-width: 220px; background: transparent; color: var(--accent-cyan); border: 1px solid var(--accent-cyan);">
+      <i class="fa-solid fa-arrow-left"></i> // Zurück zur Startseite
+    </a>
+  </section>
+
+  <div class="container" style="max-width: 800px;">
+    <div class="glass-card" id="full-changelog-container">
+      <p style="color: var(--text-muted); font-family: var(--font-mono); font-size: 0.9rem; text-align: center;">Lade Historie...</p>
+    </div>
+  </div>
+
+  <footer>
+    <p><strong>Container Tracker bei Roy Steck</strong></p>
+    <p style="margin-top: 6px;">Privates & unentgeltliches Indie-Dev Projekt von Roy Steck.</p>
+  </footer>
+
+  <script>
+    async function loadFullChangelog() {
+      try {
+        const response = await fetch('changelog.json');
+        const data = await response.json();
+        
+        if (data && data.length > 0) {
+          let html = '';
+          data.forEach(entry => {
+            let changesList = entry.changes.map(c => `<li style="margin-bottom: 6px; color: #cbd5e1; display: flex; align-items: flex-start; gap: 8px;"><i class="fa-solid fa-chevron-right" style="color: var(--accent-cyan); font-size: 0.7rem; margin-top: 5px;"></i> <span>${c}</span></li>`).join('');
+            html += `
+              <div style="margin-bottom: 2.5rem; border-left: 3px solid var(--accent-cyan); padding-left: 18px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 5px;">
+                  <strong style="color: var(--accent-green); font-family: var(--font-mono); font-size: 1.2rem;">${entry.version}</strong>
+                  <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted); background: var(--bg-code); padding: 3px 8px; border-radius: 4px; border: 1px solid var(--border-color);">${entry.date}</span>
+                </div>
+                <h3 style="color: var(--text-main); font-size: 1.05rem; margin-bottom: 10px; font-family: var(--font-mono);">${entry.title}</h3>
+                <ul style="list-style: none; font-size: 0.9rem;">
+                  ${changesList}
+                </ul>
+              </div>
+            `;
+          });
+          document.getElementById('full-changelog-container').innerHTML = html;
+        }
+      } catch (err) {
+        document.getElementById('full-changelog-container').innerHTML = `<p style="color: var(--text-muted); text-align: center;">Changelog konnte nicht geladen werden.</p>`;
+      }
+    }
+
+    loadFullChangelog();
+  </script>
+</body>
+</html>

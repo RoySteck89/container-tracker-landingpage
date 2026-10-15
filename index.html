@@ -8,454 +8,33 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg-dark: #0a0e17;
-      --bg-card: rgba(18, 26, 41, 0.8);
-      --bg-code: #05080f;
-      --accent-cyan: #38bdf8;
-      --accent-green: #22c55e;
-      --accent-amber: #f59e0b;
-      --text-main: #f8fafc;
-      --text-muted: #64748b;
-      --border-color: #1e293b;
-      --border-glow: rgba(56, 189, 248, 0.3);
-      --font-mono: 'JetBrains Mono', monospace;
-      --font-sans: 'Plus Jakarta Sans', sans-serif;
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: var(--font-sans);
-      background-color: var(--bg-dark);
-      background-image: 
-        linear-gradient(to right, rgba(30, 41, 59, 0.3) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(30, 41, 59, 0.3) 1px, transparent 1px);
-      background-size: 32px 32px;
-      color: var(--text-main);
-      line-height: 1.6;
-      -webkit-tap-highlight-color: transparent;
-    }
-
-    .hero {
-      padding: 3rem 1rem 2rem;
-      text-align: center;
-      position: relative;
-    }
-
-    .terminal-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--bg-code);
-      color: var(--accent-green);
-      font-family: var(--font-mono);
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      font-size: 0.8rem;
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      margin-bottom: 1.5rem;
-      box-shadow: 0 0 15px rgba(34, 197, 94, 0.1);
-    }
-
-    .terminal-dot {
-      width: 8px;
-      height: 8px;
-      background-color: var(--accent-green);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--accent-green);
-    }
-
-    h1 {
-      font-family: var(--font-mono);
-      font-size: clamp(1.8rem, 5vw, 2.8rem);
-      font-weight: 700;
-      margin-bottom: 0.8rem;
-      color: var(--text-main);
-    }
-
-    h1 span.prompt { color: var(--accent-cyan); }
-
-    .subtitle {
-      max-width: 650px;
-      margin: 0 auto 1.5rem;
-      color: #94a3b8;
-      font-size: 1rem;
-    }
-
-    .tech-stack {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 2rem;
-    }
-
-    .tech-pill {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      background: rgba(30, 41, 59, 0.6);
-      color: var(--accent-cyan);
-      padding: 4px 10px;
-      border-radius: 6px;
-      border: 1px solid var(--border-color);
-    }
-
-    .btn-action {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      background: var(--accent-cyan);
-      color: #0a0e17;
-      font-family: var(--font-mono);
-      padding: 0.85rem 1.5rem;
-      border-radius: 8px;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.2s;
-      width: 100%;
-      max-width: 320px;
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.2);
-    }
-
-    .btn-action:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 30px rgba(56, 189, 248, 0.4);
-    }
-
-    .container {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 1.5rem 1rem;
-    }
-
-    .showcase-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2rem;
-      align-items: center;
-      margin: 2rem 0;
-    }
-
-    @media (min-width: 900px) {
-      .showcase-grid { grid-template-columns: 1fr 380px; }
-      .btn-action { width: auto; }
-    }
-
-    .glass-card {
-      background: var(--bg-card);
-      backdrop-filter: blur(12px);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.5rem;
-      position: relative;
-    }
-
-    .code-card {
-      background: var(--bg-code);
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      padding: 1rem;
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-      color: #94a3b8;
-      margin-top: 1rem;
-      overflow-x: auto;
-    }
-
-    .code-card .kwd { color: #f43f5e; }
-    .code-card .str { color: #38bdf8; }
-    .code-card .var { color: #a855f7; }
-
-    /* Phone Frame mit 1:1 Echtoptik der originalen App */
-    .phone-container {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-    }
-
-    .phone-frame {
-      width: 100%;
-      max-width: 360px;
-      background: #05080f;
-      border: 2px solid var(--border-color);
-      border-radius: 28px;
-      padding: 10px;
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), 0 0 0 1px var(--border-glow);
-    }
-
-    .phone-screen {
-      background: #181818;
-      border-radius: 20px;
-      padding: 12px;
-      font-size: 0.85rem;
-      min-height: 520px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Original App Navigation Bar */
-    .app-top-bar {
-      background: #222222;
-      border-radius: 10px;
-      padding: 8px 12px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      border: 1px solid #333;
-    }
-
-    .app-top-title {
-      color: #38bdf8;
-      font-weight: 700;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .app-top-icons {
-      display: flex;
-      gap: 6px;
-    }
-
-    .app-icon-btn {
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      background: #00bcd4;
-      color: #fff;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.75rem;
-    }
-
-    .app-icon-amber { background: #ffb300; }
-
-    /* Original App Tabs */
-    .app-nav-tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 6px;
-      margin-bottom: 12px;
-    }
-
-    .app-tab {
-      background: #2a2a2a;
-      color: #999;
-      text-align: center;
-      padding: 8px 4px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.8rem;
-      cursor: pointer;
-      border: 1px solid #333;
-      transition: all 0.2s;
-    }
-
-    .app-tab.active {
-      background: #40c4ff;
-      color: #000;
-      border-color: #40c4ff;
-    }
-
-    /* Main App Card Container */
-    .app-card-box {
-      background: #222222;
-      border: 1px solid #333;
-      border-radius: 12px;
-      padding: 12px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .tab-content {
-      display: none;
-      flex-direction: column;
-      flex-grow: 1;
-      animation: fadeIn 0.3s ease-in-out;
-    }
-
-    .tab-content.active { display: flex; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(3px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .mock-label {
-      font-size: 0.75rem;
-      color: #aaa;
-      margin-top: 8px;
-      margin-bottom: 4px;
-      font-weight: 600;
-    }
-
-    .mock-field {
-      background: #181818;
-      border: 1px solid #333;
-      padding: 8px 10px;
-      border-radius: 8px;
-      color: #fff;
-      font-size: 0.85rem;
-    }
-
-    .mock-btn-cyan {
-      width: 100%;
-      background: #40c4ff;
-      color: #000;
-      border: none;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: 700;
-      margin-top: 14px;
-      font-size: 0.9rem;
-      cursor: pointer;
-    }
-
-    .mock-btn-gray {
-      width: 100%;
-      background: #ccc;
-      color: #000;
-      border: none;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: 700;
-      margin-top: 12px;
-      font-size: 0.85rem;
-    }
-
-    .mock-btn-red {
-      background: #ff4081;
-      color: #fff;
-      border: none;
-      padding: 10px;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 0.8rem;
-    }
-
-    .section-title {
-      font-family: var(--font-mono);
-      font-size: 1.4rem;
-      font-weight: 700;
-      margin: 3rem 0 1.5rem;
-      text-align: center;
-      color: var(--accent-cyan);
-    }
-
-    .comparison-grid, .roadmap-timeline {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.2rem;
-    }
-
-    @media (min-width: 650px) {
-      .comparison-grid { grid-template-columns: repeat(2, 1fr); }
-      .roadmap-timeline { grid-template-columns: repeat(3, 1fr); }
-    }
-
-    .roadmap-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.2rem;
-    }
-
-    .roadmap-badge {
-      display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 4px;
-      margin-bottom: 10px;
-    }
-
-    .badge-live { background: rgba(56, 189, 248, 0.15); color: var(--accent-cyan); border: 1px solid var(--accent-cyan); }
-    .badge-next { background: rgba(245, 158, 11, 0.15); color: var(--accent-amber); border: 1px solid var(--accent-amber); }
-    .badge-future { background: rgba(100, 116, 139, 0.15); color: var(--text-muted); border: 1px solid var(--border-color); }
-
-    .roadmap-list {
-      list-style: none;
-      margin-top: 8px;
-    }
-
-    .roadmap-list li {
-      margin-bottom: 8px;
-      font-size: 0.88rem;
-      color: #cbd5e1;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .comments-wrapper {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 1.2rem;
-      margin-top: 1.5rem;
-    }
-
-    .comment-input-group input, 
-    .comment-input-group textarea {
-      width: 100%;
-      background: var(--bg-code);
-      border: 1px solid var(--border-color);
-      padding: 12px;
-      border-radius: 6px;
-      color: #fff;
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-    }
-
-    .empty-comments {
-      text-align: center;
-      color: var(--text-muted);
-      font-family: var(--font-mono);
-      font-size: 0.85rem;
-      padding: 1.5rem 0;
-      border-top: 1px dashed var(--border-color);
-    }
-
-    footer {
-      text-align: center;
-      padding: 2.5rem 1rem;
-      border-top: 1px solid var(--border-color);
-      margin-top: 3rem;
-      color: var(--text-muted);
-      font-family: var(--font-mono);
-      font-size: 0.8rem;
-    }
-  </style>
+  
+  <link rel="stylesheet" href="landing.css">
 </head>
 <body>
 
   <section class="hero">
     <div class="terminal-badge">
       <div class="terminal-dot"></div>
-      <span>status: live // proof-of-concept v1.0</span>
+      <span>status: online // version 1.0 stabil</span>
     </div>
 
     <h1><span class="prompt">></span> Container Tracker</h1>
-    <p style="font-family: var(--font-mono); color: var(--accent-cyan); margin-bottom: 0.5rem;">by Roy Steck</p>
-    <p class="subtitle">Minimalistisches, offline-fähiges PWA-Tool zur ultraschnellen Erfassung von Container-Fahrten direkt im Lkw.</p>
+    <p style="font-family: var(--font-mono); color: var(--accent-cyan); margin-bottom: 0.5rem;">von Roy Steck</p>
+    <p class="subtitle">Minimalistisches, offline-fähiges Web-Tool zur ultraschnellen Erfassung von Container-Fahrten direkt im Lkw.</p>
     
     <div class="tech-stack">
       <span class="tech-pill"><i class="fa-brands fa-html5"></i> HTML5</span>
       <span class="tech-pill"><i class="fa-brands fa-css3-alt"></i> CSS3</span>
       <span class="tech-pill"><i class="fa-brands fa-js"></i> Vanilla JS</span>
       <span class="tech-pill"><i class="fa-solid fa-mobile-screen"></i> PWA</span>
-      <span class="tech-pill"><i class="fa-solid fa-database"></i> LocalStorage</span>
+      <span class="tech-pill"><i class="fa-solid fa-database"></i> Supabase Cloud</span>
     </div>
 
-    <a href="#roadmap" class="btn-action"><i class="fa-solid fa-terminal"></i> // Roadmap & Feedback</a>
+    <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+      <a href="app.html" class="btn-action"><i class="fa-solid fa-rocket"></i> // Zur Web-App</a>
+      <a href="changelog.html" class="btn-action" style="background: transparent; color: var(--accent-cyan); border: 1px solid var(--accent-cyan);"><i class="fa-solid fa-clipboard-list"></i> // Gesamtes Changelog</a>
+    </div>
   </section>
 
   <div class="container">
@@ -463,29 +42,30 @@
     <div class="showcase-grid">
       <div class="glass-card">
         <h2 style="color: var(--accent-cyan); font-family: var(--font-mono); font-size: 1.2rem; margin-bottom: 0.8rem;">
-          <i class="fa-solid fa-code"></i> Pragmatische Dev-Philosophie
+          <i class="fa-solid fa-code"></i> Pragmatische Entwickler-Philosophie
         </h2>
-        <p style="margin-bottom: 0.8rem; color: #cbd5e1;">Kein Framework-Bloat, keine unnötige Datenbank-Kopplung. <strong>Container Tracker</strong> wurde aus dem echten Arbeitsalltag heraus entwickelt – fokussiert auf maximale Geschwindigkeit und 100% Zuverlässigkeit auch im Funkloch.</p>
+        <p style="margin-bottom: 0.8rem; color: #cbd5e1;">Kein unnötiger Ballast, volle Kontrolle über die eigenen Daten. <strong>Container Tracker</strong> wurde direkt aus dem echten Arbeitsalltag heraus entwickelt – fokussiert auf maximale Geschwindigkeit und 100% Zuverlässigkeit.</p>
         
         <div class="code-card">
           <div><span class="kwd">const</span> app = {</div>
           <div style="padding-left: 12px;"><span class="var">name</span>: <span class="str">"Container Tracker bei Roy Steck"</span>,</div>
-          <div style="padding-left: 12px;"><span class="var">offlineMode</span>: <span class="kwd">true</span>,</div>
-          <div style="padding-left: 12px;"><span class="var">dataPrivacy</span>: <span class="str">"100% Local"</span></div>
+          <div style="padding-left: 12px;"><span class="var">cloudSync</span>: <span class="kwd">true</span>,</div>
+          <div style="padding-left: 12px;"><span class="var">dataPrivacy</span>: <span class="str">"100% Sicher"</span></div>
           <div>};</div>
         </div>
       </div>
 
-      <!-- Exaktes 1:1 Abbild deiner echten App -->
+      <!-- Phone Frame mit fester Höhe -->
       <div class="phone-container">
         <div class="phone-frame">
           <div class="phone-screen">
             
-            <!-- Top Header mit Icons -->
+            <!-- App Top Header -->
             <div class="app-top-bar">
               <div class="app-top-title"><i class="fa-solid fa-truck"></i> Container Tracker</div>
               <div class="app-top-icons">
-                <div class="app-icon-btn app-icon-amber"><i class="fa-solid fa-sun"></i></div>
+                <div class="app-icon-btn">📋</div>
+                <div class="app-icon-btn">🌙</div>
                 <div class="app-icon-btn">?</div>
               </div>
             </div>
@@ -499,74 +79,95 @@
 
             <div class="app-card-box">
               
-              <!-- SCREEN 1: ERFASSEN -->
+              <!-- TAB 1: ERFASSEN -->
               <div class="tab-content active" id="mock-tab-0">
-                <div style="font-weight: 700; color: #40c4ff; margin-bottom: 6px; font-size: 0.85rem;">Neue Fahrt erfassen</div>
+                <div class="cyber-card">
+                  <div class="cyber-title">Neuen Container erfassen</div>
 
-                <div class="mock-label">Datum</div>
-                <div class="mock-field" style="display: flex; justify-content: space-between; align-items: center;">
-                  <span>14.10.2026</span>
-                  <i class="fa-regular fa-calendar" style="color: #666;"></i>
-                </div>
+                  <div class="mock-label">Datum</div>
+                  <div class="mock-field" style="display: flex; justify-content: space-between; align-items: center;">
+                    <span>15.10.2026</span>
+                    <i class="fa-regular fa-calendar" style="color: var(--accent-cyan);"></i>
+                  </div>
 
-                <div class="mock-label">Abholort</div>
-                <div class="mock-field" style="color: #888;">-- Ort auswählen --</div>
+                  <div class="mock-label">Abholort</div>
+                  <div class="mock-field" style="color: #64748b;">-- Ort auswählen --</div>
 
-                <div class="mock-label">Container-Art</div>
-                <div class="mock-field" style="color: #888;">-- Art auswählen --</div>
+                  <div class="mock-label">Container-Art</div>
+                  <div class="mock-field" style="color: #64748b;">-- Art auswählen --</div>
 
-                <div class="mock-label">LKW-Kennzeichen</div>
-                <div class="mock-field">OA-AX 1234</div>
-                <div style="font-size: 0.65rem; color: #888; margin-top: 3px;">Fährst du heute einen anderen Lkw? Einfach antippen und ändern!</div>
+                  <div class="mock-label">LKW-Kennzeichen</div>
+                  <div class="mock-field">OA-AX 1234</div>
+                  <div style="font-size: 0.65rem; color: #64748b; margin-top: 3px;">Anderer Lkw? Antippen & ändern!</div>
 
-                <button class="mock-btn-cyan">Fahrt speichern</button>
-              </div>
+                  <button class="mock-btn-cyan">Container speichern</button>
 
-              <!-- SCREEN 2: MONATSLISTE -->
-              <div class="tab-content" id="mock-tab-1">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                  <span style="font-weight: 700; color: #40c4ff; font-size: 0.85rem;">Monatsübersicht</span>
-                  <div style="background: #181818; border: 1px solid #333; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; color: #fff;">
-                    Oktober 2026 <i class="fa-regular fa-calendar"></i>
+                  <div class="summary-box-mock">
+                    Container heute (15.10.2026): <span style="color: #22c55e; font-weight: bold;">0</span>
                   </div>
                 </div>
 
-                <div style="background: #333; display: grid; grid-template-columns: 1fr 1.2fr 1fr 1fr; padding: 6px; font-size: 0.65rem; font-weight: 700; color: #fff; text-align: center; border-radius: 4px;">
-                  <span>Datum</span>
-                  <span>Art & Anzahl</span>
-                  <span>Ort</span>
-                  <span>Aktion</span>
+                <div class="cyber-card" style="margin-top: 8px;">
+                  <div class="cyber-title" style="font-size: 0.75rem;">Über die App</div>
+                  <div style="font-size: 0.7rem; color: #94a3b8; display: flex; justify-content: space-between; margin-bottom: 2px;">
+                    <span>App-Name:</span> <span style="color: #fff;">Container Tracker</span>
+                  </div>
+                  <div style="font-size: 0.7rem; color: #94a3b8; display: flex; justify-content: space-between;">
+                    <span>Autor:</span> <span style="color: #fff;">Roy Steck</span>
+                  </div>
                 </div>
-
-                <div style="text-align: center; color: #888; font-size: 0.75rem; padding: 25px 0;">
-                  Keine Einträge in diesem Monat.
-                </div>
-
-                <div style="background: #181818; border: 1px solid #333; border-radius: 6px; padding: 8px; text-align: right; color: #40c4ff; font-weight: 700; font-size: 0.8rem; margin-top: auto;">
-                  Gesamt-Container: 0
-                </div>
-
-                <button class="mock-btn-gray">PDF / Druckansicht</button>
               </div>
 
-              <!-- SCREEN 3: PROFIL -->
+              <!-- TAB 2: MONATSLISTE -->
+              <div class="tab-content" id="mock-tab-1">
+                <div class="cyber-card" style="flex-grow: 1; display: flex; flex-direction: column;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span class="cyber-title" style="margin-bottom: 0;">Monatsübersicht</span>
+                    <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid #1e293b; padding: 2px 6px; border-radius: 4px; font-size: 0.7rem; color: #fff;">
+                      Oktober 2026
+                    </div>
+                  </div>
+
+                  <div style="background: rgba(15, 23, 42, 0.9); display: grid; grid-template-columns: 1fr 1fr 1fr; padding: 4px; font-size: 0.65rem; font-weight: 700; color: var(--accent-cyan); text-align: center; border-radius: 4px; border: 1px solid #1e293b;">
+                    <span>Datum</span>
+                    <span>Art & Ort</span>
+                    <span>Aktion</span>
+                  </div>
+
+                  <div style="text-align: center; color: #64748b; font-size: 0.75rem; padding: 30px 0; flex-grow: 1;">
+                    Keine Einträge in diesem Monat.
+                  </div>
+
+                  <div class="summary-box-mock" style="margin-top: auto;">
+                    Gesamt-Container: <span style="color: var(--accent-cyan); font-weight: bold;">0</span>
+                  </div>
+
+                  <button class="mock-btn-cyan" style="background: var(--accent-cyan); color: #0a0e17; margin-top: 6px;">PDF / Druckansicht</button>
+                </div>
+              </div>
+
+              <!-- TAB 3: PROFIL -->
               <div class="tab-content" id="mock-tab-2">
-                <div style="font-weight: 700; color: #40c4ff; margin-bottom: 6px; font-size: 0.85rem;">Benutzerprofil</div>
+                <div class="cyber-card">
+                  <div class="cyber-title">Benutzerprofil</div>
 
-                <div class="mock-label">Vollständiger Name (für Auswertung)</div>
-                <div class="mock-field">Roy Steck</div>
+                  <div class="mock-label">Vollständiger Name</div>
+                  <div class="mock-field">Roy Steck</div>
 
-                <div class="mock-label">Stamm-LKW-Kennzeichen (Standard)</div>
-                <div class="mock-field">OA-AX 1234</div>
+                  <div class="mock-label">Stamm-LKW-Kennzeichen</div>
+                  <div class="mock-field">OA-AX 1234</div>
 
-                <button class="mock-btn-cyan" style="margin-top: 10px;">Profil speichern</button>
+                  <button class="mock-btn-cyan" style="margin-top: 8px;">Profil speichern</button>
 
-                <div style="font-weight: 700; color: #fff; font-size: 0.75rem; margin-top: 12px;">Datenschutz & Sicherheit</div>
-                <div style="font-size: 0.65rem; color: #888; margin-top: 2px;">Deine Daten werden absolut sicher und verschlüsselt in deiner persönlichen Datenbank gespeichert.</div>
+                  <div style="border-top: 1px solid #1e293b; margin-top: 10px; padding-top: 8px;">
+                    <div style="font-weight: 700; color: #fff; font-size: 0.7rem;">Datenschutz & Sicherheit</div>
+                    <div style="font-size: 0.62rem; color: #64748b; margin-top: 2px; line-height: 1.2;">Daten werden verschlüsselt in deiner Datenbank gespeichert.</div>
+                  </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 10px;">
-                  <button style="background: #888; color: #fff; border: none; padding: 8px; border-radius: 6px; font-weight: 700; font-size: 0.75rem;">Abmelden</button>
-                  <button class="mock-btn-red">Account löschen</button>
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px;">
+                    <button style="background: #334155; color: #fff; border: none; padding: 6px; border-radius: 6px; font-weight: 700; font-size: 0.7rem;">Abmelden</button>
+                    <button style="background: #ef4444; color: #fff; border: none; padding: 6px; border-radius: 6px; font-weight: 700; font-size: 0.7rem;">Löschen</button>
+                  </div>
                 </div>
               </div>
 
@@ -577,78 +178,78 @@
       </div>
     </div>
 
-    <!-- Vision / Vergleich -->
-    <h2 class="section-title">// v1.0 vs. v2.0 Architecture</h2>
+    <!-- Architektur-Vergleich -->
+    <h2 class="section-title">// Architektur: Version 1.0 vs. Version 2.0</h2>
     <div class="comparison-grid">
       <div class="glass-card">
-        <h3 style="color: var(--accent-cyan); font-family: var(--font-mono); margin-bottom: 0.8rem; font-size: 1rem;">Version 1.0 (Current Stack)</h3>
+        <h3 style="color: var(--accent-cyan); font-family: var(--font-mono); margin-bottom: 0.8rem; font-size: 1rem;">Version 1.0 (Aktueller Stand)</h3>
         <ul style="list-style: none; color: #cbd5e1;">
           <li style="margin-bottom: 8px;"><i class="fa-solid fa-check" style="color: var(--accent-cyan);"></i> Dediziertes Lkw-Container Formular</li>
+          <li style="margin-bottom: 8px;"><i class="fa-solid fa-check" style="color: var(--accent-cyan);"></i> Supabase Cloud-Sync & Verschlüsselung</li>
           <li style="margin-bottom: 8px;"><i class="fa-solid fa-check" style="color: var(--accent-cyan);"></i> Offline-First ServiceWorker Engine</li>
-          <li style="margin-bottom: 8px;"><i class="fa-solid fa-check" style="color: var(--accent-cyan);"></i> Zero Server Logs / 100% Device-Local</li>
         </ul>
       </div>
 
       <div class="glass-card">
-        <h3 style="color: var(--accent-amber); font-family: var(--font-mono); margin-bottom: 0.8rem; font-size: 1rem;">Version 2.0 (Planned Features)</h3>
+        <h3 style="color: var(--accent-amber); font-family: var(--font-mono); margin-bottom: 0.8rem; font-size: 1rem;">Version 2.0 (Geplante Features)</h3>
         <ul style="list-style: none; color: #cbd5e1;">
-          <li style="margin-bottom: 8px;"><i class="fa-solid fa-star" style="color: var(--accent-amber);"></i> Dynamic Custom Fields (Gewerbe-Universal)</li>
+          <li style="margin-bottom: 8px;"><i class="fa-solid fa-star" style="color: var(--accent-amber);"></i> Dynamische Benutzerfelder (Gewerbe-Universal)</li>
           <li style="margin-bottom: 8px;"><i class="fa-solid fa-star" style="color: var(--accent-amber);"></i> Flexible Schema-Konfiguration</li>
-          <li style="margin-bottom: 8px;"><i class="fa-solid fa-star" style="color: var(--accent-amber);"></i> Export-Engine (CSV / Excel / PDF)</li>
+          <li style="margin-bottom: 8px;"><i class="fa-solid fa-star" style="color: var(--accent-amber);"></i> Erweiterte Export-Engine (CSV / Excel / PDF)</li>
         </ul>
       </div>
     </div>
 
-    <!-- ROADMAP SECTION -->
-    <h2 class="section-title" id="roadmap">// Release_Roadmap.log</h2>
+    <!-- RELEASE ROADMAP -->
+    <h2 class="section-title" id="roadmap">// Entwicklungs-Roadmap</h2>
     <div class="roadmap-timeline">
       
       <div class="roadmap-card">
-        <span class="roadmap-badge badge-live">v1.0 • STABLE</span>
-        <h3 style="color: var(--text-main); font-family: var(--font-mono); margin-bottom: 8px; font-size: 1rem;">Proof of Concept</h3>
+        <span class="roadmap-badge badge-live">v1.0 • STABIL</span>
+        <h3 style="color: var(--text-main); font-family: var(--font-mono); margin-bottom: 8px; font-size: 1rem;">Basis-Version</h3>
         <ul class="roadmap-list">
-          <li><i class="fa-solid fa-check" style="color: var(--accent-cyan);"></i> Lkw-Container Logging</li>
-          <li><i class="fa-solid fa-check" style="color: var(--accent-cyan);"></i> PWA Support (Offline)</li>
-          <li><i class="fa-solid fa-check" style="color: var(--accent-cyan);"></i> LocalStorage Database</li>
-          <li><i class="fa-solid fa-check" style="color: var(--accent-cyan);"></i> Monthly Table View</li>
+          <li><i class="fa-solid fa-check" style="color: var(--accent-cyan);"></i> Lkw-Container Erfassung</li>
+          <li><i class="fa-solid fa-check" style="color: var(--accent-cyan);"></i> PWA Unterstützung (Offline)</li>
+          <li><i class="fa-solid fa-check" style="color: var(--accent-cyan);"></i> Supabase Cloud-Datenbank</li>
+          <li><i class="fa-solid fa-check" style="color: var(--accent-cyan);"></i> Monatslisten-Ansicht</li>
         </ul>
       </div>
 
       <div class="roadmap-card">
-        <span class="roadmap-badge badge-next">v1.5 • IN_DEV</span>
-        <h3 style="color: var(--text-main); font-family: var(--font-mono); margin-bottom: 8px; font-size: 1rem;">Data Export</h3>
+        <span class="roadmap-badge badge-next">v1.5 • IN ENTWICKLUNG</span>
+        <h3 style="color: var(--text-main); font-family: var(--font-mono); margin-bottom: 8px; font-size: 1rem;">Daten-Export</h3>
         <ul class="roadmap-list">
-          <li><i class="fa-solid fa-terminal" style="color: var(--accent-amber);"></i> CSV / Excel File Export</li>
-          <li><i class="fa-solid fa-terminal" style="color: var(--accent-amber);"></i> Instant Table Filter</li>
-          <li><i class="fa-solid fa-terminal" style="color: var(--accent-amber);"></i> Auto-Location Preset</li>
+          <li><i class="fa-solid fa-terminal" style="color: var(--accent-amber);"></i> CSV & Excel Datei-Export</li>
+          <li><i class="fa-solid fa-terminal" style="color: var(--accent-amber);"></i> Direkter Tabellen-Filter</li>
+          <li><i class="fa-solid fa-terminal" style="color: var(--accent-amber);"></i> Automatisierte Orts-Vorschau</li>
         </ul>
       </div>
 
       <div class="roadmap-card">
-        <span class="roadmap-badge badge-future">v2.0 • BACKLOG</span>
-        <h3 style="color: var(--text-main); font-family: var(--font-mono); margin-bottom: 8px; font-size: 1rem;">Universal Engine</h3>
+        <span class="roadmap-badge badge-future">v2.0 • GEPLANT</span>
+        <h3 style="color: var(--text-main); font-family: var(--font-mono); margin-bottom: 8px; font-size: 1rem;">Universale Engine</h3>
         <ul class="roadmap-list">
-          <li><i class="fa-solid fa-code-branch" style="color: var(--text-muted);"></i> Custom Form Builder</li>
-          <li><i class="fa-solid fa-code-branch" style="color: var(--text-muted);"></i> Multi-Industry Support</li>
-          <li><i class="fa-solid fa-code-branch" style="color: var(--text-muted);"></i> PDF Monthly Report</li>
+          <li><i class="fa-solid fa-code-branch" style="color: var(--text-muted);"></i> Eigener Formular-Baukasten</li>
+          <li><i class="fa-solid fa-code-branch" style="color: var(--text-muted);"></i> Branchenübergreifender Support</li>
+          <li><i class="fa-solid fa-code-branch" style="color: var(--text-muted);"></i> Erweiterter PDF-Report</li>
         </ul>
       </div>
 
     </div>
 
-    <!-- Feedback & Kommentare -->
-    <h2 class="section-title" id="feedback">// Community_Issues_&_Ideas</h2>
+    <!-- Feedback & Vorschläge -->
+    <h2 class="section-title" id="feedback">// Community & Feedback</h2>
     <div class="comments-wrapper">
-      <p style="margin-bottom: 1.2rem; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.85rem;">[Input Needed] Welche Features fehlen dir für v2.0? Hinterlasse ein Feedback:</p>
+      <p style="margin-bottom: 1.2rem; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.85rem;">[Eingabe] Welche Features wünschst du dir für v2.0? Hinterlasse eine Nachricht:</p>
       
       <div class="comment-input-group" style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.5rem;">
-        <input type="text" id="c-name" placeholder="Name / Developer Tag">
+        <input type="text" id="c-name" placeholder="Dein Name / Entwickler-Tag">
         <textarea id="c-msg" rows="3" placeholder="// Feature-Wunsch oder Feedback eingeben..."></textarea>
-        <button onclick="postComment()" class="btn-action" style="border: none; cursor: pointer;">Submit Feedback</button>
+        <button onclick="postComment()" class="btn-action" style="border: none; cursor: pointer; width: 100%; max-width: none;">Feedback absenden</button>
       </div>
 
       <div id="comments-box">
-        <div id="empty-msg" class="empty-comments">
+        <div id="empty-msg" style="text-align: center; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.85rem; padding: 1rem 0;">
           // Noch keine Einträge vorhanden. Sei der Erste!
         </div>
       </div>
@@ -659,8 +260,6 @@
   <footer>
     <p><strong>Container Tracker bei Roy Steck</strong></p>
     <p style="margin-top: 6px;">Privates & unentgeltliches Indie-Dev Projekt von Roy Steck.</p>
-    <p style="margin-top: 4px; color: var(--border-color);">--------------------------------------------------</p>
-    <p style="margin-top: 4px;">100% Client-Side Executed. Zero External Tracking.</p>
   </footer>
 
   <script>
@@ -682,6 +281,7 @@
 
       contents.forEach((content, i) => {
         if (i === index) {
+          content.classList.index = i;
           content.classList.add('active');
         } else {
           content.classList.remove('active');
@@ -705,7 +305,7 @@
     });
 
     function postComment() {
-      const name = document.getElementById('c-name').value || 'Anonym_Dev';
+      const name = document.getElementById('c-name').value || 'Anonym';
       const msg = document.getElementById('c-msg').value;
       if(!msg) return;
 

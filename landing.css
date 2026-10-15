@@ -310,4 +310,4 @@ h1 span.prompt { color: var(--accent-cyan); }
 
 footer {
   text-align: center; padding: 2.5rem 1rem; border-top: 1px solid var(--border-color); margin-top: 3rem; color: var(--text-muted); font-family: var(--font-mono); font-size: 0.8rem;
-}
+} 
